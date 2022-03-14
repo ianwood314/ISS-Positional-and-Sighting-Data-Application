@@ -13,8 +13,6 @@ filenotfound_error_str = '\n-- File not Found --\n\n'
 
 app = Flask(__name__)
 
-iss_pos_data = {}
-
 # keys for the iss position data
 epoch_key = 'EPOCH'
 
@@ -46,8 +44,8 @@ def download_data(iss_pos_filename = 'ISS.OEM_J2K_EPH.xml', sightings_filename =
 	Loads the ISS position and sightings data from their respective XML files
 	into the global variables iss_pos_data and sightings_data, respectively.
 	'''
-	global iss_pos_data, sightings_data
-	try: 
+	try:
+		global iss_pos_data, sightings_data
 		with open(iss_pos_filename, 'r') as f:
 			data = xmltodict.parse(f.read())
 		iss_pos_data = data['ndm']['oem']['body']['segment']['data']['stateVector']
@@ -71,10 +69,24 @@ def get_epochs() -> List[dict]:
 	'''
 	Returns a list of dictionaries where each dictionary is an epoch.
 	'''
-	try:
+	'''
+	if len(iss_pos_data) == 0:
+		return output_error_str
+	else
 		logging.debug('Get epochs queried')
 		return jsonify(iss_pos_data)
-	except NameError as e:
+	
+	try:
+		resp = jsonify(iss_pos_data)
+		return resp
+	except RuntimeError as e:
+		return output_error_str
+	'''
+	try:
+		logging.debug('Get epochs queried')
+		response = jsonify(iss_pos_data)
+		return response
+	except Exception as e:
 		logging.error(e)
 		return output_error_str
 
@@ -98,7 +110,7 @@ def get_epoch(requested_epoch: str) -> dict:
 				return jsonify(epoch)
 		logging.info('User queried unknown epoch: {requested_epoch}')
 		return f'  Epoch {requested_epoch} not found\n'
-	except NameError as e:
+	except Exception as e:
 		logging.error(e)
 		return output_error_str
 
@@ -110,7 +122,7 @@ def get_sightings() -> List[dict]:
 	try:
 		logging.debug('Get all sightings data queried')
 		return jsonify(sightings_data)
-	except NameError as e:
+	except Exception as e:
 		logging.error(e)
 		return output_error_str
 
@@ -120,9 +132,9 @@ def get_countries() -> List[dict]:
 	Returns a list of dictionaries where each dicationary is a country
 	along with the numer of times a sighting occured in that country
 	'''
-	countries = {}
-	sightings_countries = []
 	try:
+		countries = {}
+		sightings_countries = []
 		for sighting in sightings_data:
 			if sighting[country_key] in countries.keys():
 				countries[sighting[country_key]] += 1
@@ -133,7 +145,7 @@ def get_countries() -> List[dict]:
 			sightings_countries.append({'country': country, 'numsightings': countries[country]})
 		logging.debug('Get all countries queried')
 		return jsonify(sightings_countries)
-	except NameError as e:
+	except Exception as e:
 		logging.error(e)
 		return output_error_str
 
@@ -158,7 +170,7 @@ def get_country(country: str) -> List[dict]:
 				country_data.append(sighting)
 		logging.debug('Get specific country queried')
 		return jsonify(country_data)
-	except NameError as e:
+	except Exception as e:
 		logging.error(e)
 		return output_error_str
 
@@ -169,16 +181,19 @@ def get_regions_of_countries() -> dict:
 	data and the values are a list of the regions where a sighting occured in 
 	that country.
 	'''
-	countries_regions = {}
-
-	for sighting in sightings_data:
-		if sighting[country_key] in countries_regions.keys():
-			if not (sighting[region_key] in countries_regions[sighting[country_key]]):
-				countries_regions[sighting[country_key]].append(sighting[region_key])
-		else:
-			countries_regions[sighting[country_key]] = [sighting[region_key]]
-	logging.debug('Get the regions of all countries queried')
-	return jsonify(countries_regions)
+	try:
+		countries_regions = {}
+		for sighting in sightings_data:
+			if sighting[country_key] in countries_regions.keys():
+				if not (sighting[region_key] in countries_regions[sighting[country_key]]):
+					countries_regions[sighting[country_key]].append(sighting[region_key])
+			else:
+				countries_regions[sighting[country_key]] = [sighting[region_key]]
+		logging.debug('Get the regions of all countries queried')
+		return jsonify(countries_regions)
+	except Exception as e:
+		logging.error(e)
+		return output_error_str
 
 @app.route('/sightings/<country>/regions', methods=['GET'])
 def get_regions_of_country(country: str) -> dict:
@@ -196,20 +211,22 @@ def get_regions_of_country(country: str) -> dict:
 		is a list of dictionaries where each dictionary is a region within that
 		country where a sighting occured.
 	'''
-	regions = {}
-	country_regions = []
-
-	for sighting in sightings_data:
-		if sighting[country_key] == country.title():
-			if sighting[region_key] in regions.keys():
-				regions[sighting[region_key]] += 1
-			else:
-				regions[sighting[region_key]] = 1
-
-	for region in regions.keys():
-		country_regions.append({'region': region, 'numsightings': regions[region]})
-	logging.debug('Get the regions of a specific country queried')
-	return jsonify({f'{country.title()}': country_regions})
+	try:
+		regions = {}
+		country_regions = []
+		for sighting in sightings_data:
+			if sighting[country_key] == country.title():
+				if sighting[region_key] in regions.keys():
+					regions[sighting[region_key]] += 1
+				else:
+					regions[sighting[region_key]] = 1
+		for region in regions.keys():
+			country_regions.append({'region': region, 'numsightings': regions[region]})
+		logging.debug('Get the regions of a specific country queried')
+		return jsonify({f'{country.title()}': country_regions})
+	except Exception as e:
+		logging.error(e)
+		return output_error_str
 
 @app.route('/sightings/region-<region>', methods=['GET'])
 def get_region(region: str) -> List[dict]:
@@ -224,13 +241,16 @@ def get_region(region: str) -> List[dict]:
 		region_sightings (list): a list of dictionaries where each dictionary
 		contains all the data from a sighting in the region
 	'''
-	region_sightings = []
-
-	for sighting in sightings_data:
-		if sighting[region_key] == region.title():
-			region_sightings.append(sighting)
-	logging.debug('Get the data of a specific region queried')
-	return jsonify(region_sightings)
+	try:
+		region_sightings = []
+		for sighting in sightings_data:
+			if sighting[region_key] == region.title():
+				region_sightings.append(sighting)
+		logging.debug('Get the data of a specific region queried')
+		return jsonify(region_sightings)
+	except Exception as e:
+		logging.error(e)
+		return output_error_str
 
 @app.route('/sightings/<country>-<region>-cities')
 def get_cities(country: str, region: str) -> dict:
@@ -249,14 +269,17 @@ def get_cities(country: str, region: str) -> dict:
 		where the first key value-pair is the region provided and the second key-value pair are the cities 
 		located in that country and region
 	'''
-	cities = []
-
-	for sighting in sightings_data:
-		if (sighting[country_key] == country.title()) and (sighting[region_key] == region.title()):
-			if not (sighting[city_key] in cities):
-				cities.append(sighting[city_key])
-	logging.debug('Get the cities of a specific country and region queried')
-	return jsonify({country.title(): {'region': region.title(), 'citiesinregion': cities} })
+	try:
+		cities = []
+		for sighting in sightings_data:
+			if (sighting[country_key] == country.title()) and (sighting[region_key] == region.title()):
+				if not (sighting[city_key] in cities):
+					cities.append(sighting[city_key])
+		logging.debug('Get the cities of a specific country and region queried')
+		return jsonify({country.title(): {'region': region.title(), 'citiesinregion': cities} })
+	except Exception as e:
+		logging.error(e)
+		return output_error_str
 
 @app.route('/sightings/city-<city>', methods=['GET'])
 def get_city(city: str) -> dict:
@@ -271,12 +294,16 @@ def get_city(city: str) -> dict:
 		A dictionary where they key in the city name and the value is a list of dictionaries
 		where each dictionary contains all the data for a sighting in that city.
 	'''
-	city_sightings = []
-	for sighting in sightings_data:
-		if sighting[city_key] == city.title():
-			city_sightings.append(sighting)
-	logging.debug('Get all the sighting data for a specific city queried')
-	return jsonify({city.title(): city_sightings})
+	try:
+		city_sightings = []
+		for sighting in sightings_data:
+			if sighting[city_key] == city.title():
+				city_sightings.append(sighting)
+		logging.debug('Get all the sighting data for a specific city queried')
+		return jsonify({city.title(): city_sightings})
+	except Exception as e:
+		logging.error(e)
+		return output_error_str
 
 if __name__ == '__main__':
 	app.run(debug=True,host='0.0.0.0')
