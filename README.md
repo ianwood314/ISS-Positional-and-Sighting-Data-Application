@@ -10,7 +10,7 @@ the ISS was sighted in at specific times.
 [How to Build Your Own Image](#how-to-build-your-own-image)<br >
 [How to Interact with the Application](#how-to-interact-with-the-application)<br >
 [Interpret the Results](#interpret-the-results)<br >
-[Important Files](#important-files)<br >
+[File Descriptions](#file-descriptions)<br >
 
 ## How to Download the Pre-built Code
 1. Pull the image from Docker Hub
