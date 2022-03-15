@@ -442,7 +442,7 @@ From the example outout above, we can see all the sightings of the ISS that occu
 
 Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easily-jump-to) <br >
 
-## Important Files
+## File Descriptions
 
 ### Scripts
 1. `app.py`
