@@ -11,7 +11,6 @@ the ISS was sighted in at specific times.
 [How to Interact with the Application](#how-to-interact-with-the-application)<br >
 [Interpret the Results](#interpret-the-results)<br >
 [Important Files](#important-files)<br >
-[How to Run the Test Suite with Pytest](#how-to-run-the-test-suite-with-pytest)
 
 ## How to Download the Pre-built Code
 1. Pull the image from Docker Hub
@@ -461,5 +460,3 @@ Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easil
     - Contains the specifc time, country (United States), region (state), and city the sighitng took place
 
 The ISS data above was taken from NASA's official website found [here](https://data.nasa.gov/Space-Science/ISS_COORDS_2022-02-13/r6u8-bhhq).
-
-## How to Run the Test Suite with Pytest
