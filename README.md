@@ -1,7 +1,7 @@
 # ISS Positional and Sighting Data Application
 
 The purpose of this application is to provide the user with various positional and sightings data for the International Space Station (ISS).
-Specifically, the user can access information related to the postion and velocity of the ISS at specific times as well as the country, region, or city
+Specifically, the user can access information related to the position and velocity of the ISS at specific times as well as the country, region, or city
 the ISS was sighted in at specific times.
 
 ## Table of Contents
@@ -19,7 +19,7 @@ as shown below.
 
 1. Pull the image from Docker Hub
     - Type `make pull` in the command line
-    - Alteratively, you can type `docker pull ianwood314/iss-data-query:1.1` in the command line (which is the same command executed by `make pull`)
+    - Alternatively, you can type `docker pull ianwood314/iss-data-query:1.1` in the command line (which is the same command executed by `make pull`)
 2. Run the image
     - Type `make run` in the command line
     - Alternatively, type `docker run --name "iss-query-data" -d -p 5038:5000 ianwood314/iss-data-query:1.1` (again, the same command executed by `make run`)
@@ -66,7 +66,7 @@ NOTE: for the sections below, a port number of 5038 is used.
       9.  /sightings/<country>-<region>-cities
       10. /sightings/city-<city>
     ```
-  - Ouput above details how to download the data and provides a list of the ten queryable routes
+  - Output above details how to download the data and provides a list of the ten queryable routes
 
 #### Brief description of each queryable route
 
@@ -79,15 +79,15 @@ NOTE: each output is in the class `~flask.Response`
 3. `/sightings`: 
     - Returns a list of dictionaries where each dictionary is a sighting of the ISS
 4. `/sightings/countries`
-    - Returns a list of dictionaries where each dicationary is a country along with the numer of times a sighting occured in that country
+    - Returns a list of dictionaries where each dictionary is a country along with the number of times a sighting occurred in that country
 5. `/sightings/<country>`
     - Takes in a country as user input and returns a list of dictionaries where each dictionary is a sighting in that country
 6. `/sightings/countries/regions`
-    - Returns a dictionary where the keys are all of the countries in the sightings data and the values are a list of the regions where a sighting occured in that country
+    - Returns a dictionary where the keys are all of the countries in the sightings data and the values are a list of the regions where a sighting occurred in that country
 7. `/sightings/<country>/regions`
     - Takes in a country as user input and returns a dictionary where the first and only key is the country given and the value is a list of dictionaries where each dictionary is a region with the number of sightings within that region
 8. `/sightings/region-<region>`
-    - Takes in a region as user input and returns a list of dictionaries where wach dictionary is a sighting in the region provided by the user
+    - Takes in a region as user input and returns a list of dictionaries where each dictionary is a sighting in the region provided by the user
 9. `/sightings/<country>-<region>-cities`
     - Takes a country and region as user input and returns a dictionary where the key is the country provided and the value is another dictionary where the first key value-pair is the region provided and the second key-value pair are the cities located in that country and region
 10. `/sightings/city-<city>`
@@ -144,7 +144,7 @@ The following sections display an example command and the resulting output. Reme
   }
 ]
 ```
-From the example output above, we can see that each epoch is defined by the key "EPOCH". Additionally, we can see the  position of the ISS in cartisian coordinates from the X, Y and Z keys as well as its velocity in X, Y, and Z directions given by X_DOT, Y_DOT, and Z_DOT, respectively. <br >
+From the example output above, we can see that each epoch is defined by the key "EPOCH". Additionally, we can see the  position of the ISS in cartesian coordinates from the X, Y and Z keys as well as its velocity in X, Y, and Z directions given by X_DOT, Y_DOT, and Z_DOT, respectively. <br >
 
 Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easily-jump-to) <br >
 
@@ -181,7 +181,7 @@ Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easil
   }
 }
 ```
-From the example output above, we can see that the requested epoch is defined by the key "EPOCH". Additionally, we can see the  position of the ISS in cartisian coordinates from the X, Y and Z keys as well as its velocity in X, Y, and Z directions given by X_DOT, Y_DOT, and Z_DOT, respectively. For example, we can see that the ISS was travelling at 6.694 km/s in the x-direction. <br >
+From the example output above, we can see that the requested epoch is defined by the key "EPOCH". Additionally, we can see the  position of the ISS in cartesian coordinates from the X, Y and Z keys as well as its velocity in X, Y, and Z directions given by X_DOT, Y_DOT, and Z_DOT, respectively. For example, we can see that the ISS was traveling at 6.694 km/s in the x-direction. <br >
 
 Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easily-jump-to) <br >
 
@@ -277,7 +277,7 @@ Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easil
   }
 ]
 ```
-From the example output above, we can see all the sightings that occured in the country provided by the user. <br >
+From the example output above, we can see all the sightings that occurred in the country provided by the user. <br >
 
 Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easily-jump-to) <br >
 
@@ -297,7 +297,7 @@ Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easil
   ]
 }
 ```
-From the example output above, we can see a key for every country where a sighting occured. The value of that key is a list of all the regions within that country where a sighting occurred. In the case above, the only country were a sighting occurred was in the United States and the regions (states) where Alabama, Alaska, etc. <br >
+From the example output above, we can see a key for every country where a sighting occurred. The value of that key is a list of all the regions within that country where a sighting occurred. In the case above, the only country were a sighting occurred was in the United States and the regions (states) where Alabama, Alaska, etc. <br >
 
 Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easily-jump-to) <br >
 
@@ -335,7 +335,7 @@ Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easil
   ]
 }
 ```
-From the example output above, we can see the country the user requested as the first key in the dictionary, in this case United_States. Additionally, we can see a list of all the regions where a sighting occured as well as the number of times a sightings occurred within that region. For example, we can see that the ISS was sighting in Arkansas 1049 times. <br >
+From the example output above, we can see the country the user requested as the first key in the dictionary, in this case United_States. Additionally, we can see a list of all the regions where a sighting occurred as well as the number of times a sightings occurred within that region. For example, we can see that the ISS was sighting in Arkansas 1049 times. <br >
 
 Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easily-jump-to) <br >
 
@@ -442,7 +442,7 @@ Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easil
   ]
 }
 ```
-From the example outout above, we can see all the sightings of the ISS that occured in Arkansas City. <br >
+From the example output above, we can see all the sightings of the ISS that occurred in Arkansas City. <br >
 
 Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easily-jump-to) <br >
 
@@ -461,6 +461,6 @@ Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easil
     - Contains the specific, time, position, and velocity data for the ISS
 2. `XMLsightingData_citiesUSA01.xml`
     - Contains the sightings of the ISS within the United States
-    - Contains the specifc time, country (United States), region (state), and city the sighting took place
+    - Contains the specific time, country (United States), region (state), and city the sighting took place
 
 The ISS data above was taken from NASA's official website found [here](https://data.nasa.gov/Space-Science/ISS_COORDS_2022-02-13/r6u8-bhhq).
