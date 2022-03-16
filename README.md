@@ -237,7 +237,7 @@ Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easil
   }
 ]
 ```
-From the example output above, we can see a list of all the countries in the dataset where the ISS was sighted as well as the number of times the ISS was sighted within that country. For example, we can see that the ISS was sighting in the United States 3611 times. <br >
+From the example output above, we can see a list of all the countries in the dataset where the ISS was sighted as well as the number of times the ISS was sighted within that country. For example, we can see that the ISS was sighted in the United States 3611 times. <br >
 
 Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easily-jump-to) <br >
 
