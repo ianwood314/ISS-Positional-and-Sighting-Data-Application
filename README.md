@@ -461,6 +461,6 @@ Link for you to go back to the [list of routes](#list-of-routes-for-you-to-easil
     - Contains the specific, time, position, and velocity data for the ISS
 2. `XMLsightingData_citiesUSA01.xml`
     - Contains the sightings of the ISS within the United States
-    - Contains the specifc time, country (United States), region (state), and city the sighitng took place
+    - Contains the specifc time, country (United States), region (state), and city the sighting took place
 
 The ISS data above was taken from NASA's official website found [here](https://data.nasa.gov/Space-Science/ISS_COORDS_2022-02-13/r6u8-bhhq).
