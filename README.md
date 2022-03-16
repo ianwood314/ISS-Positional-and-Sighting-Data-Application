@@ -76,7 +76,7 @@ NOTE: each output is in the class `~flask.Response`
     - Returns a list of dictionaries where each dictionary is an epoch
 2. `/epochs/<requested_epoch>`
     - Takes in user input of an epoch and returns the first dictionary whose EPOCH key value matches the user's input
-3. `/sightings`: 
+3. `/sightings`
     - Returns a list of dictionaries where each dictionary is a sighting of the ISS
 4. `/sightings/countries`
     - Returns a list of dictionaries where each dictionary is a country along with the number of times a sighting occurred in that country
