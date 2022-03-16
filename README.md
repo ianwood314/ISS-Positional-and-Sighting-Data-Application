@@ -13,6 +13,10 @@ the ISS was sighted in at specific times.
 [File Descriptions](#file-descriptions)<br >
 
 ## How to Download the Pre-built Code
+
+To use the `make` commands below, you need to download the Makefile from this repository. Alternatively, you can run the `docker` commands
+as shown below.
+
 1. Pull the image from Docker Hub
     - Type `make pull` in the command line
     - Alteratively, you can type `docker pull ianwood314/iss-data-query:1.1` in the command line (which is the same command executed by `make pull`)
