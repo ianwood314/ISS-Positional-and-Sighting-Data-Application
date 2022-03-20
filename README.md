@@ -6,7 +6,7 @@ the ISS was sighted in at specific times.
 
 ## Table of Contents
 
-[How to Download the Pre-built Code](#how-to-interact-with-the-application) <br >
+[How to Download the Pre-built Code](#how-to-download-the-pre-built-code) <br >
 [How to Build Your Own Image](#how-to-build-your-own-image)<br >
 [How to Interact with the Application](#how-to-interact-with-the-application)<br >
 [Interpret the Results](#interpret-the-results)<br >
